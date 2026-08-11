@@ -144,6 +144,14 @@ export const FEE_TYPE_LABELS: Record<FeeType, string> = {
   tuition: "Tuition",
 };
 
+export const DOCUMENT_TYPE_LABELS: Record<DocumentType, string> = {
+  passport_photo: "Passport photograph",
+  national_id: "National ID / NIN slip",
+  certificate: "Certificate / result",
+  transcript: "Transcript",
+  other: "Other",
+};
+
 export const PILLAR_LABELS: Record<ProgrammePillar, string> = {
   technology: "Technology and Digital Education",
   technical_vocational: "Technical and Vocational Education",

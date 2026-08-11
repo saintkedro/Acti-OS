@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Source_Sans_3, Syne } from "next/font/google";
+import { Poppins, Source_Sans_3 } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -8,9 +8,10 @@ const sourceSans = Source_Sans_3({
   subsets: ["latin"],
 });
 
-const syne = Syne({
+const poppins = Poppins({
   variable: "--font-display",
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -30,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sourceSans.variable} ${syne.variable} h-full antialiased`}
+      className={`${sourceSans.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
         {children}

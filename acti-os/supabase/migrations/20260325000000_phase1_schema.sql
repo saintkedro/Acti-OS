@@ -306,8 +306,14 @@ create policy "Users insert own applications"
 
 create policy "Users update own draft applications"
   on public.applications for update
-  using (auth.uid() = user_id or public.is_admin())
-  with check (auth.uid() = user_id or public.is_admin());
+  using (
+    public.is_admin()
+    or (auth.uid() = user_id and status = 'draft')
+  )
+  with check (
+    public.is_admin()
+    or (auth.uid() = user_id and status = 'draft')
+  );
 
 -- Documents
 create policy "Users manage own documents"
@@ -316,11 +322,32 @@ create policy "Users manage own documents"
 
 create policy "Users insert own documents"
   on public.application_documents for insert
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id
+    and exists (
+      select 1
+      from public.applications a
+      where a.id = application_id
+        and a.user_id = auth.uid()
+        and a.status = 'draft'
+    )
+  );
 
 create policy "Users delete own documents"
   on public.application_documents for delete
-  using (auth.uid() = user_id or public.is_admin());
+  using (
+    public.is_admin()
+    or (
+      auth.uid() = user_id
+      and exists (
+        select 1
+        from public.applications a
+        where a.id = application_id
+          and a.user_id = auth.uid()
+          and a.status = 'draft'
+      )
+    )
+  );
 
 -- Decisions: applicants read own; admins write
 create policy "Users read decisions on own applications"
