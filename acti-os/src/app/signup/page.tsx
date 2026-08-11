@@ -9,9 +9,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SiteHeader } from "@/components/site/site-chrome";
 
+function composeFullName(first: string, middle: string, surname: string) {
+  return [first, middle, surname]
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .join(" ");
+}
+
 export default function SignupPage() {
   const router = useRouter();
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [surname, setSurname] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +33,14 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
     setMessage(null);
+
+    const fullName = composeFullName(firstName, middleName, surname);
+    if (!firstName.trim() || !surname.trim()) {
+      setError("First name and surname are required");
+      setLoading(false);
+      return;
+    }
+
     const supabase = createClient();
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
@@ -31,6 +48,9 @@ export default function SignupPage() {
       options: {
         data: {
           full_name: fullName,
+          first_name: firstName.trim(),
+          middle_name: middleName.trim() || null,
+          surname: surname.trim(),
           phone,
         },
       },
@@ -66,18 +86,40 @@ export default function SignupPage() {
         </p>
         <form onSubmit={onSubmit} className="mt-8 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="fullName">Full name</Label>
+            <Label htmlFor="firstName">First name</Label>
             <Input
-              id="fullName"
+              id="firstName"
               required
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              autoComplete="given-name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="middleName">Middle name</Label>
+            <Input
+              id="middleName"
+              autoComplete="additional-name"
+              value={middleName}
+              onChange={(e) => setMiddleName(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="surname">Surname</Label>
+            <Input
+              id="surname"
+              required
+              autoComplete="family-name"
+              value={surname}
+              onChange={(e) => setSurname(e.target.value)}
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="phone">Phone</Label>
             <Input
               id="phone"
+              type="tel"
+              autoComplete="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
@@ -113,7 +155,10 @@ export default function SignupPage() {
         </form>
         <p className="mt-6 text-sm text-muted-foreground">
           Already have an account?{" "}
-          <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
+          <Link
+            href="/login"
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
             Sign in
           </Link>
         </p>
