@@ -1,7 +1,15 @@
 import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { MarkReadButton } from "@/components/notifications/mark-read-button";
+import { pageMetadata } from "@/lib/seo";
 import type { Notification } from "@/lib/types";
+
+export const metadata = pageMetadata({
+  title: "Notifications",
+  description: "Application and payment notifications in ACTI OS.",
+  path: "/applicant/notifications",
+  index: false,
+});
 
 export default async function ApplicantNotificationsPage() {
   const profile = await requireProfile();

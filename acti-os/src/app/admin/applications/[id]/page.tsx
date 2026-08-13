@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
@@ -10,12 +11,27 @@ import {
   type Programme,
   type Profile,
 } from "@/lib/types";
+import { pageMetadata } from "@/lib/seo";
 import { DecisionForm } from "./decision-form";
 
 type AppDetail = Application & {
   profiles: Profile | null;
   programmes: Programme | null;
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  return pageMetadata({
+    title: "Application review",
+    description: "Review a single ACTI admission application and issue a decision.",
+    path: `/admin/applications/${id}`,
+    index: false,
+  });
+}
 
 export default async function AdminApplicationDetailPage({
   params,

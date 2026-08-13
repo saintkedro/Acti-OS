@@ -1,5 +1,14 @@
 import { requireProfile } from "@/lib/auth";
 import { PortalShell } from "@/components/portal/portal-shell";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Student portal",
+  description:
+    "ACTI OS student portal — dashboard, E-Library, payments, and notifications.",
+  path: "/student",
+  index: false,
+});
 
 const nav = [
   { href: "/student", label: "Dashboard" },

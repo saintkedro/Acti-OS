@@ -8,11 +8,16 @@ import {
   LearnIllustration,
 } from "@/components/site/illustrations";
 import { buttonVariants } from "@/components/ui/button";
+import { pageMetadata } from "@/lib/seo";
 import { INSTITUTION } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Cpu, Lightbulb, Wrench } from "lucide-react";
 
-export const metadata = { title: "About" };
+export const metadata = pageMetadata({
+  title: "About",
+  description: `Learn about ${INSTITUTION.name}: vision, mission, values, and the Edet Amana Foundation ecosystem in Oron, Akwa Ibom State.`,
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

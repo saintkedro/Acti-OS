@@ -8,7 +8,16 @@ import {
   type Application,
   type ApplicationStatus,
 } from "@/lib/types";
+import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
+
+export const metadata = pageMetadata({
+  title: "Applicant dashboard",
+  description:
+    "Track your ACTI application from draft to enrollment in the applicant portal.",
+  path: "/applicant",
+  index: false,
+});
 
 export default async function ApplicantDashboard() {
   const profile = await requireProfile();

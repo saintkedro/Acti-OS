@@ -10,10 +10,19 @@ import {
   type Profile,
 } from "@/lib/types";
 
+import { pageMetadata } from "@/lib/seo";
+
 type Row = Application & {
   profiles: Pick<Profile, "full_name" | "email"> | null;
   programmes: Pick<Programme, "name" | "code"> | null;
 };
+
+export const metadata = pageMetadata({
+  title: "Review applications",
+  description: "Review and decide on ACTI admission applications.",
+  path: "/admin/applications",
+  index: false,
+});
 
 export default async function AdminApplicationsPage() {
   await requireProfile(["admin"]);

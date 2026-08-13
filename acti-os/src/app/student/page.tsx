@@ -4,7 +4,16 @@ import { createClient } from "@/lib/supabase/server";
 import type { Application, Programme } from "@/lib/types";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { pageMetadata } from "@/lib/seo";
 import { BookOpen } from "lucide-react";
+
+export const metadata = pageMetadata({
+  title: "Student dashboard",
+  description:
+    "Your ACTI student dashboard — student ID, programme, and enrollment overview.",
+  path: "/student",
+  index: false,
+});
 
 export default async function StudentDashboard({
   searchParams,

@@ -4,11 +4,16 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { InnovateIllustration } from "@/components/site/illustrations";
 import { buttonVariants } from "@/components/ui/button";
+import { pageMetadata } from "@/lib/seo";
 import { INSTITUTION } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Building2, Landmark, LogIn } from "lucide-react";
 
-export const metadata = { title: "Contact" };
+export const metadata = pageMetadata({
+  title: "Contact",
+  description: `Visit ${INSTITUTION.name} at ${INSTITUTION.address}, or continue your application in the ACTI OS admissions portal.`,
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

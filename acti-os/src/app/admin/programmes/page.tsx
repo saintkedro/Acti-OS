@@ -9,6 +9,14 @@ import {
   type Programme,
   type ProgrammePillar,
 } from "@/lib/types";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Manage programmes",
+  description: "View ACTI programme catalogue and fee schedules.",
+  path: "/admin/programmes",
+  index: false,
+});
 
 export default async function AdminProgrammesPage() {
   await requireProfile(["admin"]);

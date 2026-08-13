@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
 import { PageHero } from "@/components/site/page-hero";
 import { buttonVariants } from "@/components/ui/button";
 import { getAllBlogPosts, getBlogPost } from "@/lib/content/blog-posts";
+import { pageMetadata, SITE_URL } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 export function generateStaticParams() {
@@ -14,12 +16,33 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
+  if (!post) {
+    return pageMetadata({
+      title: "Resource",
+      description: "ACTI academic resource article.",
+      path: `/resources/${slug}`,
+      index: false,
+    });
+  }
+
+  const meta = pageMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/resources/${post.slug}`,
+  });
+
   return {
-    title: post?.title ?? "Resource",
-    description: post?.excerpt,
+    ...meta,
+    openGraph: {
+      ...meta.openGraph,
+      type: "article",
+      publishedTime: post.publishedAt,
+      authors: [post.author],
+      url: `${SITE_URL}/resources/${post.slug}`,
+    },
   };
 }
 
@@ -66,7 +89,10 @@ export default async function ResourceArticlePage({
         </div>
 
         <div className="mt-12 flex flex-wrap gap-3">
-          <Link href="/resources" className={cn(buttonVariants({ variant: "outline" }))}>
+          <Link
+            href="/resources"
+            className={cn(buttonVariants({ variant: "outline" }))}
+          >
             All resources
           </Link>
           <Link href="/admissions" className={cn(buttonVariants())}>

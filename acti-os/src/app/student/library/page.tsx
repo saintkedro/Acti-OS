@@ -1,7 +1,14 @@
 import { LibraryExplorer } from "@/components/library/library-explorer";
+import { pageMetadata } from "@/lib/seo";
 import { BookOpen } from "lucide-react";
 
-export const metadata = { title: "E-Library" };
+export const metadata = pageMetadata({
+  title: "E-Library",
+  description:
+    "ACTI student E-Library — curated learning resources for enrolled students.",
+  path: "/student/library",
+  index: false,
+});
 
 export default function StudentLibraryPage() {
   return (

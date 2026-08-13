@@ -7,7 +7,16 @@ import { getBankAccountDetails } from "@/lib/bank-transfer";
 import { BankTransferInstructions } from "@/components/payments/bank-transfer-instructions";
 import { RequestBankPaymentButton } from "@/components/payments/request-bank-payment-button";
 import { FEE_TYPE_LABELS, type FeeType, type Payment } from "@/lib/types";
+import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
+
+export const metadata = pageMetadata({
+  title: "Applicant payments",
+  description:
+    "View bank transfer references and payment status for your ACTI application fees.",
+  path: "/applicant/payments",
+  index: false,
+});
 
 export default async function ApplicantPaymentsPage({
   searchParams,

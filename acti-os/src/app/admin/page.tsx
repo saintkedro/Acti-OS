@@ -1,6 +1,15 @@
 import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { formatNaira } from "@/lib/money";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Admin overview",
+  description:
+    "ACTI OS admin overview — applications, payments, and enrollment metrics.",
+  path: "/admin",
+  index: false,
+});
 
 export default async function AdminDashboard() {
   await requireProfile(["admin"]);

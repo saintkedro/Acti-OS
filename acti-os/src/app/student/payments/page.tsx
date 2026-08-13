@@ -1,7 +1,15 @@
 import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { formatNaira } from "@/lib/money";
+import { pageMetadata } from "@/lib/seo";
 import { FEE_TYPE_LABELS, type FeeType, type Payment } from "@/lib/types";
+
+export const metadata = pageMetadata({
+  title: "Student payments",
+  description: "View and manage your ACTI fee payment history.",
+  path: "/student/payments",
+  index: false,
+});
 
 export default async function StudentPaymentsPage() {
   const profile = await requireProfile(["student", "admin"]);

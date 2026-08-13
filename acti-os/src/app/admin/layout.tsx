@@ -1,5 +1,14 @@
 import { requireProfile } from "@/lib/auth";
 import { PortalShell } from "@/components/portal/portal-shell";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Admin portal",
+  description:
+    "ACTI OS administration — applications, payments, programmes, users, and notifications.",
+  path: "/admin",
+  index: false,
+});
 
 const nav = [
   { href: "/admin", label: "Overview" },

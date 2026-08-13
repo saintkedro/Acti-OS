@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Poppins, Source_Sans_3 } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_TITLE,
+  SITE_FULL_NAME,
+  SITE_URL,
+} from "@/lib/seo";
+import { INSTITUTION } from "@/lib/types";
 import "./globals.css";
 
 const sourceSans = Source_Sans_3({
@@ -15,12 +22,54 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "ACTI — Amana College of Technology and Innovation",
+    default: DEFAULT_OG_TITLE,
     template: "%s | ACTI",
   },
-  description:
-    "ACTI OS — the digital operating system for Amana College of Technology and Innovation. Technology Driven. Innovation Focused. Future Ready.",
+  description: DEFAULT_DESCRIPTION,
+  applicationName: "ACTI OS",
+  authors: [{ name: INSTITUTION.name }],
+  creator: INSTITUTION.founder,
+  publisher: INSTITUTION.name,
+  keywords: [
+    "ACTI",
+    "Amana College of Technology and Innovation",
+    "Oron",
+    "Akwa Ibom",
+    "National Diploma",
+    "engineering",
+    "admissions",
+    "technical education",
+    "vocational training",
+    "ACTI OS",
+  ],
+  category: "education",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_NG",
+    url: SITE_URL,
+    siteName: SITE_FULL_NAME,
+    title: DEFAULT_OG_TITLE,
+    description: DEFAULT_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_OG_TITLE,
+    description: DEFAULT_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
 };
 
 export default function RootLayout({

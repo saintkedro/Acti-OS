@@ -2,7 +2,15 @@ import { requireProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
 import type { Profile } from "@/lib/types";
+import { pageMetadata } from "@/lib/seo";
 import { PromoteAdminButton } from "./promote-admin-button";
+
+export const metadata = pageMetadata({
+  title: "Manage users",
+  description: "View ACTI OS users and promote administrators.",
+  path: "/admin/users",
+  index: false,
+});
 
 export default async function AdminUsersPage() {
   const me = await requireProfile(["admin"]);

@@ -4,7 +4,17 @@ import { formatNaira } from "@/lib/money";
 import { ConfirmPaymentButton } from "@/components/payments/confirm-payment-button";
 import { FEE_TYPE_LABELS, type FeeType, type Payment, type Profile } from "@/lib/types";
 
+import { pageMetadata } from "@/lib/seo";
+
 type Row = Payment & { profiles: Pick<Profile, "full_name" | "email"> | null };
+
+export const metadata = pageMetadata({
+  title: "Confirm payments",
+  description:
+    "Confirm bank transfer payments for ACTI applicants and students.",
+  path: "/admin/payments",
+  index: false,
+});
 
 export default async function AdminPaymentsPage() {
   await requireProfile(["admin"]);

@@ -4,10 +4,16 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { getAllBlogPosts } from "@/lib/content/blog-posts";
+import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { ArrowRight, BookOpen } from "lucide-react";
 
-export const metadata = { title: "Academic Resources" };
+export const metadata = pageMetadata({
+  title: "Academic Resources",
+  description:
+    "Guides for ACTI applicants and learners — admissions tips, programme pathways, fee payment by bank transfer, and campus updates.",
+  path: "/resources",
+});
 
 export default function ResourcesPage() {
   const posts = getAllBlogPosts();

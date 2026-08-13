@@ -10,6 +10,7 @@ import {
   LearnIllustration,
 } from "@/components/site/illustrations";
 import { buttonVariants } from "@/components/ui/button";
+import { pageMetadata } from "@/lib/seo";
 import { INSTITUTION } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import {
@@ -21,6 +22,13 @@ import {
   ShieldCheck,
   Wrench,
 } from "lucide-react";
+
+export const metadata = pageMetadata({
+  title: `${INSTITUTION.shortName} — ${INSTITUTION.name}`,
+  description: `${INSTITUTION.name} — ${INSTITUTION.tagline} Technology, technical & vocational, and entrepreneurship programmes in Oron, Akwa Ibom. Apply online via ACTI OS.`,
+  path: "/",
+  absoluteTitle: true,
+});
 
 const pillars = [
   {

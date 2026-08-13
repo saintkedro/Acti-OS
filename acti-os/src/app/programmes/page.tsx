@@ -5,12 +5,18 @@ import { Reveal } from "@/components/site/reveal";
 import { ProgrammeExplorer } from "@/components/site/programme-explorer";
 import { IconFeatureCard } from "@/components/site/icon-feature-card";
 import { buttonVariants } from "@/components/ui/button";
+import { pageMetadata } from "@/lib/seo";
 import { createClient } from "@/lib/supabase/server";
 import type { Programme, ProgrammePillar } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { BriefcaseBusiness, Cpu, Wrench } from "lucide-react";
 
-export const metadata = { title: "Programmes" };
+export const metadata = pageMetadata({
+  title: "Programmes",
+  description:
+    "Explore ACTI programmes across Technology & Digital, Technical & Vocational (including National Diploma engineering pathways), and Innovation & Entrepreneurship.",
+  path: "/programmes",
+});
 
 const FALLBACK: Pick<
   Programme,

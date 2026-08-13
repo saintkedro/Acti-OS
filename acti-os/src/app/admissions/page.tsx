@@ -4,9 +4,15 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { LearnIllustration } from "@/components/site/illustrations";
 import { buttonVariants } from "@/components/ui/button";
+import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
-export const metadata = { title: "Admissions" };
+export const metadata = pageMetadata({
+  title: "Admissions",
+  description:
+    "Apply to ACTI online: create an account, complete your application, upload documents, pay by bank transfer with a unique reference, and track your admission status on ACTI OS.",
+  path: "/admissions",
+});
 
 const steps = [
   {
