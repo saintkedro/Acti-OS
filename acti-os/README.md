@@ -77,10 +77,27 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Deploy (Vercel)
 
-1. Import the `acti-os` repo/folder into Vercel.
-2. Add the same env vars as `.env.local` (including bank details).
-3. Set `NEXT_PUBLIC_APP_URL` to `https://acti.edu.ng` (or your Vercel URL first).
-4. Point DNS for `acti.edu.ng` to Vercel when ready.
+The Next.js app lives in the **`acti-os/`** folder of the GitHub repo.
+If [https://acti-os.vercel.app](https://acti-os.vercel.app) shows platform `404: NOT_FOUND`,
+Root Directory is wrong or the last deploy failed.
+
+1. Import / open project for `saintkedro/Acti-OS`.
+2. **Settings → Build and Deployment → Root Directory** → `acti-os` → Save.
+3. Framework: **Next.js**. Redeploy.
+4. Add env vars (same as `.env.local`):
+
+| Variable | Required |
+|----------|----------|
+| `NEXT_PUBLIC_SUPABASE_URL` | yes |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | yes |
+| `SUPABASE_SERVICE_ROLE_KEY` | yes |
+| `NEXT_PUBLIC_APP_URL` | yes — `https://acti-os.vercel.app` first, later `https://acti.edu.ng` |
+| `BANK_NAME` / `BANK_ACCOUNT_NAME` / `BANK_ACCOUNT_NUMBER` | yes |
+| `RESEND_API_KEY` / `EMAIL_FROM` | optional |
+
+5. Point DNS for `acti.edu.ng` when ready.
+
+Ensure Phase 1 SQL is applied on the Supabase project those keys use.
 
 ## Default fees (seed)
 
