@@ -162,8 +162,13 @@ export default async function LearnHomePage({
               <li key={card.enrolment.id} className="rounded-xl border bg-white/80 p-5">
                 <CourseProgressCard {...card} />
                 {card.course.certificate_enabled && (
-                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                    You have met the completion requirements. A downloadable ACTI certificate of completion is not available yet.
+                  <p className="mt-3 text-sm leading-6">
+                    <Link
+                      href={`/learn/${card.course.slug}/certificate`}
+                      className="font-medium text-primary underline-offset-4 hover:underline"
+                    >
+                      View certificate of completion
+                    </Link>
                   </p>
                 )}
               </li>

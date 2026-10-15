@@ -91,7 +91,11 @@ export default async function LearnCoursePage({
           </div>
           {summary.complete && course.certificate_enabled && (
             <p className="mt-3 text-sm leading-6">
-              Required lessons and checks are complete. A downloadable ACTI certificate of completion is not available yet.
+              Required lessons and checks are complete.{" "}
+              <Link href={`/learn/${course.slug}/certificate`} className="font-medium text-primary underline-offset-4 hover:underline">
+                View your certificate of completion
+              </Link>
+              .
             </p>
           )}
           <Link href={next.href} className={cn(buttonVariants(), "mt-4")}>

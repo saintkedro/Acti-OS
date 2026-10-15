@@ -5,6 +5,7 @@ import { Clock3 } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
 import { PageHero } from "@/components/site/page-hero";
 import { QueryBanner } from "@/components/courses/query-banner";
+import { CourseCertificateDocument } from "@/components/courses/course-certificate";
 import { LessonVideo } from "@/components/courses/lesson-content";
 import { buttonVariants } from "@/components/ui/button";
 import { enrolInFreeCourse } from "@/lib/courses/actions";
@@ -101,6 +102,23 @@ export default async function ShortCourseDetailPage({
                 </p>
               ))}
             </div>
+            {course.certificate_enabled && (
+              <div className="space-y-3 pt-4">
+                <h3 className="font-display text-lg font-semibold text-primary">Certificate</h3>
+                <p className="max-w-prose text-sm leading-6 text-muted-foreground">
+                  This is a sample. Your own certificate is issued after you complete the required lessons and pass the check.
+                </p>
+                <CourseCertificateDocument
+                  sample
+                  learnerName="Ada Okon"
+                  courseTitle={course.title}
+                  issuedOn="the day you finish"
+                  code="SAMPLE"
+                  durationLabel={course.duration_label}
+                  heading="p"
+                />
+              </div>
+            )}
           </section>
           {outcomes.length > 0 && (
             <section>

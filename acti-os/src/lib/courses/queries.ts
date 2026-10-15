@@ -4,6 +4,7 @@ import type {
   AssessmentOutline,
   CourseAssessment,
   CourseCardData,
+  CourseCertificate,
   CourseEnrolment,
   CourseLesson,
   CourseModule,
@@ -160,6 +161,51 @@ export async function getAdminCourse(id: string) {
     .maybeSingle();
 
   return (data as ShortCourse | null) ?? null;
+}
+
+function asCertificate(data: unknown): CourseCertificate | null {
+  let value = data;
+  if (typeof data === "string") {
+    try {
+      value = JSON.parse(data);
+    } catch {
+      return null;
+    }
+  }
+  if (!value || typeof value !== "object") return null;
+  const row = value as Partial<CourseCertificate>;
+  if (!row.code || !row.learner_name || !row.course_title || !row.issued_at) return null;
+  return {
+    id: row.id ?? "public",
+    code: row.code,
+    learner_name: row.learner_name,
+    course_title: row.course_title,
+    issued_at: row.issued_at,
+  };
+}
+
+export async function verifyCourseCertificate(code: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("verify_course_certificate", {
+    p_code: code,
+  });
+
+  return {
+    certificate: error ? null : asCertificate(data),
+    error: error?.message ?? null,
+  };
+}
+
+export async function issueCourseCertificate(enrolmentId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("issue_course_certificate", {
+    p_enrolment_id: enrolmentId,
+  });
+
+  return {
+    certificate: error ? null : asCertificate(data),
+    error: error?.message ?? null,
+  };
 }
 
 export async function getAdminAssessments(courseId: string) {

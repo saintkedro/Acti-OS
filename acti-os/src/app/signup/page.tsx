@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { PasswordField } from "@/components/auth/password-field";
 import { safeInternalPath } from "@/lib/routes";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -26,9 +27,11 @@ function SignupForm() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const mismatch = confirmPassword.length > 0 && password !== confirmPassword;
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -39,6 +42,18 @@ function SignupForm() {
     const fullName = composeFullName(firstName, middleName, surname);
     if (!firstName.trim() || !surname.trim()) {
       setError("First name and surname are required");
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Use at least 8 characters.");
+      setLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
       setLoading(false);
       return;
     }
@@ -137,21 +152,34 @@ function SignupForm() {
               autoComplete="email"
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              required
-              minLength={8}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="new-password"
-            />
-          </div>
-          {error && <p className="text-sm text-destructive">{error}</p>}
+          <PasswordField
+            id="password"
+            label="Password"
+            value={password}
+            onChange={setPassword}
+            autoComplete="new-password"
+          />
+          <PasswordField
+            id="confirmPassword"
+            label="Confirm password"
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            autoComplete="new-password"
+            invalid={mismatch}
+            describedBy={mismatch ? "password-mismatch" : undefined}
+          />
+          {mismatch && (
+            <p id="password-mismatch" role="alert" className="text-sm text-destructive">
+              Passwords do not match.
+            </p>
+          )}
+          {error && (
+            <p role="alert" className="text-sm text-destructive">
+              {error}
+            </p>
+          )}
           {message && <p className="text-sm text-primary">{message}</p>}
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full" disabled={loading || mismatch}>
             {loading ? "Creating…" : "Create account"}
           </Button>
         </form>

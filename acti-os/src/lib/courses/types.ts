@@ -132,6 +132,14 @@ export type CourseAssessment = AssessmentOutline & {
   publication_status: CourseStatus;
 };
 
+export type CourseCertificate = {
+  id: string;
+  code: string;
+  learner_name: string;
+  course_title: string;
+  issued_at: string;
+};
+
 export type CourseEnrolment = {
   id: string;
   user_id: string;

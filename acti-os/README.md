@@ -61,6 +61,11 @@ Flow:
 
 Set `RESEND_API_KEY` and `EMAIL_FROM` for email notifications. In-app notifications work without it.
 
+Password reset emails are sent by Supabase Auth. In Authentication → URL configuration, allow:
+
+- `http://localhost:3000/auth/callback`
+- your deployed app URL with the same `/auth/callback` path
+
 ### 5. Run
 
 ```bash
@@ -71,14 +76,20 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Short courses
 
-Apply `supabase/migrations/20261015100000_short_courses.sql` after the Phase 1 migration.
+Apply these after the Phase 1 migration, in order:
+
+1. `supabase/migrations/20261015100000_short_courses.sql`
+2. `supabase/migrations/20261015180000_ai_essentials_lessons.sql`
+3. `supabase/migrations/20261015190000_course_certificates.sql`
+
+The second file fills **AI Essentials** with five lessons, a YouTube video on each lesson, and a five-question check. It is safe to run again. The third file issues an ACTI certificate of completion once the required lessons and check are done. The learner prints or saves it from the browser. It is not a diploma. `20261015193000_verify_course_certificate.sql` lets anyone confirm an issued code at `/verify/[code]`. The overview sample code cannot be confirmed.
 
 What this slice includes:
 
 - Public catalogue at `/short-courses`
 - Free enrolment for **AI Essentials**
-- Lesson player for one text lesson and one text-and-video lesson (the recording is not linked yet)
-- A three-question check, graded on the server
+- Five lessons, each with a written page and a public YouTube video
+- A five-question check, graded on the server
 - Learner home at `/learn`
 - Admin management at `/admin/courses`
 
@@ -87,7 +98,7 @@ What this slice includes:
 Try it:
 
 1. Open `/short-courses` and confirm AI Essentials is listed and the paid AI course is not.
-2. Sign in, enrol for free, open both lessons, and mark them complete.
+2. Sign in, enrol for free, open the five lessons, and mark them complete.
 3. Submit the course check. A second device with the same account should show the same progress.
 4. In an admin account, open `/admin/courses` and confirm a paid course cannot be published.
 

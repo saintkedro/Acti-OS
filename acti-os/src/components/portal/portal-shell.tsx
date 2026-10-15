@@ -66,8 +66,8 @@ export function PortalShell({
   );
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#E8EEF7_0%,#F8FAFC_45%,#F8FAFC_100%)]">
-      <header className="border-b border-border/80 bg-white/70 backdrop-blur">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#E8EEF7_0%,#F8FAFC_45%,#F8FAFC_100%)] print:bg-white print:bg-none">
+      <header className="border-b border-border/80 bg-white/70 backdrop-blur print:hidden">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
             <Sheet open={open} onOpenChange={setOpen}>
@@ -116,8 +116,8 @@ export function PortalShell({
           </div>
         </div>
       </header>
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 md:grid-cols-[220px_1fr]">
-        <aside className="hidden md:block">
+      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 md:grid-cols-[220px_1fr] print:block print:max-w-none print:p-0">
+        <aside className="hidden md:block print:hidden">
           <NavLinks />
         </aside>
         <main>{children}</main>
