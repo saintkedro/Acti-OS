@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { safeInternalPath } from "@/lib/routes";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,7 +44,7 @@ export default function LoginPage() {
       .single();
 
     const destination =
-      next ||
+      safeInternalPath(next) ||
       (profile?.role === "admin"
         ? "/admin"
         : profile?.role === "student"
@@ -59,7 +60,7 @@ export default function LoginPage() {
       <div className="mx-auto flex max-w-md flex-col px-4 pb-16 pt-36">
         <h1 className="font-display text-3xl font-bold text-primary">Sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Access your ACTI OS admissions or student portal.
+          Access admissions, short courses, or the student portal.
         </p>
         <form onSubmit={onSubmit} className="mt-8 space-y-4">
           <div className="space-y-2">

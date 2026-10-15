@@ -12,6 +12,7 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/programmes", label: "Programmes" },
+  { href: "/short-courses", label: "Short courses" },
   { href: "/admissions", label: "Admissions" },
   { href: "/resources", label: "Resources" },
   { href: "/contact", label: "Contact" },

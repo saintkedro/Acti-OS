@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
+import { safeInternalPath } from "@/lib/routes";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,8 +17,9 @@ function composeFullName(first: string, middle: string, surname: string) {
     .join(" ");
 }
 
-export default function SignupPage() {
+function SignupForm() {
   const router = useRouter();
+  const next = safeInternalPath(useSearchParams().get("next"));
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [surname, setSurname] = useState("");
@@ -63,7 +65,7 @@ export default function SignupPage() {
     }
 
     if (data.session) {
-      router.push("/applicant");
+      router.push(next || "/applicant");
       router.refresh();
       return;
     }
@@ -82,7 +84,7 @@ export default function SignupPage() {
           Create your account
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Start your ACTI application in minutes.
+          Create an account to apply, or to enrol in a short course.
         </p>
         <form onSubmit={onSubmit} className="mt-8 space-y-4">
           <div className="space-y-2">
@@ -156,7 +158,7 @@ export default function SignupPage() {
         <p className="mt-6 text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link
-            href="/login"
+            href={next ? `/login?next=${encodeURIComponent(next)}` : "/login"}
             className="font-medium text-primary underline-offset-4 hover:underline"
           >
             Sign in
@@ -164,5 +166,13 @@ export default function SignupPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-sm text-muted-foreground">Loading…</div>}>
+      <SignupForm />
+    </Suspense>
   );
 }

@@ -41,7 +41,12 @@ export default async function ApplicantDashboard() {
           Welcome{profile.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}
         </h1>
         <p className="mt-2 text-muted-foreground">
-          Track your ACTI application from draft to enrollment.
+          Track your ACTI application from draft to enrollment. Short courses are
+          separate from your application.{" "}
+          <Link href="/short-courses" className="font-medium text-primary underline-offset-4 hover:underline">
+            Browse short courses
+          </Link>
+          .
         </p>
       </div>
 

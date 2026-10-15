@@ -12,6 +12,7 @@ export const metadata = pageMetadata({
 
 const nav = [
   { href: "/student", label: "Dashboard" },
+  { href: "/learn", label: "Short courses" },
   { href: "/student/library", label: "E-Library" },
   { href: "/student/payments", label: "Payments" },
   { href: "/student/notifications", label: "Notifications" },

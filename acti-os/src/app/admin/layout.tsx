@@ -15,6 +15,7 @@ const nav = [
   { href: "/admin/applications", label: "Applications" },
   { href: "/admin/payments", label: "Payments" },
   { href: "/admin/programmes", label: "Programmes" },
+  { href: "/admin/courses", label: "Short courses" },
   { href: "/admin/users", label: "Users" },
   { href: "/admin/notifications", label: "Notifications" },
 ];

@@ -46,8 +46,8 @@ export default async function StudentDashboard({
           Student dashboard
         </h1>
         <p className="mt-2 text-muted-foreground">
-          Your ACTI OS student profile for Phase 1. Course registration arrives
-          in Phase 2.
+          Your ACTI student profile. Diploma course registration is still to come.
+          Short courses are available separately.
         </p>
       </div>
 
@@ -80,6 +80,18 @@ export default async function StudentDashboard({
         </div>
         <Link href="/student/library" className={cn(buttonVariants())}>
           Open E-Library
+        </Link>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border bg-white/80 p-5">
+        <div>
+          <p className="font-display font-semibold text-primary">Short courses</p>
+          <p className="text-sm text-muted-foreground">
+            Continue a free or paid short course from My learning.
+          </p>
+        </div>
+        <Link href="/learn" className={cn(buttonVariants({ variant: "outline" }))}>
+          My learning
         </Link>
       </div>
 

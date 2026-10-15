@@ -69,6 +69,28 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Short courses
+
+Apply `supabase/migrations/20261015100000_short_courses.sql` after the Phase 1 migration.
+
+What this slice includes:
+
+- Public catalogue at `/short-courses`
+- Free enrolment for **AI Essentials**
+- Lesson player for one text lesson and one text-and-video lesson (the recording is not linked yet)
+- A three-question check, graded on the server
+- Learner home at `/learn`
+- Admin management at `/admin/courses`
+
+**AI for Work and Business** is a draft. Paid enrolment is not open, and publishing a paid course is blocked until payment confirmation is connected.
+
+Try it:
+
+1. Open `/short-courses` and confirm AI Essentials is listed and the paid AI course is not.
+2. Sign in, enrol for free, open both lessons, and mark them complete.
+3. Submit the course check. A second device with the same account should show the same progress.
+4. In an admin account, open `/admin/courses` and confirm a paid course cannot be published.
+
 ## Phase 1 journeys
 
 1. Applicant signs up → completes application → uploads docs → gets bank reference → admin confirms fee → submitted.
